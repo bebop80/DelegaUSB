@@ -29,6 +29,8 @@ input:focus,select:focus{outline:2px solid var(--ac);outline-offset:1px}
 .go:disabled{opacity:.6;cursor:wait}
 .save-btn{display:none;width:100%;margin-top:12px;padding:14px;border:0;border-radius:10px;background:var(--ok);color:#fff;font:inherit;font-weight:700;cursor:pointer;text-align:center}
 .save-btn:hover{filter:brightness(1.06)}
+.wa-btn{display:none;width:100%;margin-top:12px;padding:14px;border-radius:10px;background:#128C7E;color:#fff;font:inherit;font-weight:700;text-align:center;text-decoration:none}
+.wa-btn:hover{filter:brightness(1.06)}
 #msg{margin-top:14px;font-weight:600;min-height:1.4em}
 .ok{color:var(--ok)}.er{color:var(--er)}
 .note{font-size:.8rem;color:var(--mu);margin-top:14px}
@@ -77,6 +79,7 @@ input:focus,select:focus{outline:2px solid var(--ac);outline-offset:1px}
 <button type="button" class="link" id="clr">Cancella la firma</button>
 <button type="submit" class="go" id="go">Compila ed invia</button>
 <button type="button" class="save-btn" id="savePdf">Salva PDF</button>
+<a class="wa-btn" id="joinWa" href="https://chat.whatsapp.com/Jq4ofngwl3H5AhI86x13OO" target="_blank" rel="noopener">💬 Entra nel gruppo WhatsApp “USB COMUNICAZIONI”</a>
 <div id="msg" role="status"></div>
 <p class="note">Il modulo compilato verrà inviato automaticamente alla segreteria RSA USB easyJet e potrai salvarne subito una copia sul tuo dispositivo.</p>
 </form>
@@ -210,8 +213,10 @@ document.getElementById("f").addEventListener("submit", async e => {
 
   const b = document.getElementById("go");
   const saveBtn = document.getElementById("savePdf");
+  const waBtn = document.getElementById("joinWa");
   b.disabled = true;
   saveBtn.style.display = "none";
+  waBtn.style.display = "none";
   say("Compilazione e invio in corso…");
 
   try {
@@ -247,8 +252,9 @@ document.getElementById("f").addEventListener("submit", async e => {
     }
 
     if (res.status === "success" || res.status === "duplicate") {
-      say("✅ " + res.message + " Ora puoi scaricare la tua copia cliccando su 'Salva PDF'.", "ok");
+      say("✅ " + res.message + " Ora puoi scaricare la tua copia cliccando su 'Salva PDF' ed entrare nel gruppo WhatsApp USB COMUNICAZIONI.", "ok");
       saveBtn.style.display = "block";
+      waBtn.style.display = "block";
     } else {
       say("⚠️ " + (res.message || "Errore durante l'invio."), "er");
     }
